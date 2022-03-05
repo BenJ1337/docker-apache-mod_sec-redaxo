@@ -1,0 +1,19 @@
+{
+    // Verwendet IntelliSense zum Ermitteln möglicher Attribute.
+    // Zeigen Sie auf vorhandene Attribute, um die zugehörigen Beschreibungen anzuzeigen.
+    // Weitere Informationen finden Sie unter https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "hostname": "192.168.56.1",            
+            //"stopOnEntry":true,
+            "port": 9003,
+            "pathMappings": {
+                "/var/www/html/": "${workspaceFolder}/html",
+            }
+        }
+    ]
+}

@@ -1,0 +1,25 @@
+version: '3.4'
+services:
+  mod-sec-proxy:
+    image: mod_sec
+    build:
+      context: './mod_sec/' 
+      target: mod_sec_prod
+      args:
+        DOCKER_MOD_SEC_IMAGE: ${DOCKER_MOD_SEC_IMAGE}  
+    ports:
+      - ${HTTP_PORT}:80
+      - ${HTTPS_PORT}:443
+    env_file:
+      - ./mod_sec/mod_sec.env
+    networks:
+      - frontend
+    depends_on:
+      - apache-service
+  apache-service:
+    volumes:
+       - ${WEBRROT_HOST}:${WEBROOT_CONATINER}
+  php-service:
+    volumes:
+       - ${WEBRROT_HOST}:${WEBROOT_CONATINER}
+      

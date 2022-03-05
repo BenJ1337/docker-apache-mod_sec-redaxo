@@ -1,0 +1,55 @@
+version: '3.4'
+services:
+  apache-service:
+    container_name: ${DOCKER_C_NAME_APACHE}
+    image: ${DOCKER_APACHE_IMAGE}
+    build:
+      context: './apache/' 
+      target: httpd-${ENV}     
+      args:
+        DOCKER_APACHE_VERSION: ${DOCKER_APACHE_VERSION}   
+    env_file:
+      - ./apache/apache.env
+    networks:
+      - frontend
+    depends_on:
+      - php-service
+      - db-client
+  php-service:
+    container_name: ${DOCKER_C_NAME_PHP}
+    image: ${DOCKER_PHP_IMAGE}
+    build:
+      context: './php/'
+      target: php-fpm-${ENV}
+      args:
+        DOCKER_PHP_VERSION: ${DOCKER_PHP_VERSION} 
+    env_file:
+      - ./php/php.env
+    networks:
+      - frontend
+      - backend
+    depends_on:
+      - db-service
+  db-service:
+    container_name: ${DOCKER_C_NAME_DB}
+    image: ${DOCKER_DB_NAME}:${DOCKER_DB_VERSION}
+    env_file:
+      - ./mariadb/mariadb.env 
+    networks:
+      - backend
+  db-client:
+    container_name: db-client
+    image: phpmyadmin:5
+    depends_on:
+      - db-service
+    environment:
+      PMA_HOST: db-service
+      PMA_ABSOLUTE_URI: "https://dev.local/phpmyadmin/"
+    networks:
+      - backend
+      - frontend
+
+networks:
+  backend:
+  frontend:
+
