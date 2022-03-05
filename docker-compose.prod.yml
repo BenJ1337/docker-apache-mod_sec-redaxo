@@ -18,8 +18,8 @@ services:
       - apache-service
   apache-service:
     volumes:
-       - ${WEBRROT_HOST}:${WEBROOT_CONATINER}
+       - ${WEBRROOT_HOST}:${WEBROOT_CONATINER}
   php-service:
     volumes:
-       - ${WEBRROT_HOST}:${WEBROOT_CONATINER}
+       - ${WEBRROOT_HOST}:${WEBROOT_CONATINER}
       
